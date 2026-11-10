@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+
+<body>
+    <div class="header">
+        <h1>Good Morning, Vang!</h1>
+        <div class="header-controls">
+            <div class="dropdown">
+                Daily <i class="fa fa-chevron-down"></i>
+            </div>
+            <div class="date-picker">
+                <i class="fa fa-calendar"></i>
+                November 11, 2026
+            </div>
+
+            <div class="export-btn">
+                <i class="fa fa-download"></i>
+                Export
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Monthly Income</h3>
+                    <button class="card-menu"><i class="fa fa-ellipsis-h"></i></button>
+                </div>
+                <div class="amount income-amount">$100.00</div>
+                <div class="change">
+                    <i class="fa fa-arrow-up"></i>
+                    12% vs Last Month
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Monthly Expenses</h3>
+                    <button class="card-menu"><i class="fa fa-ellipsis-h"></i></button>
+                </div>
+                <div class="amount expense-amount">$200.00</div>
+                <div class="change">
+                    <i class="fa fa-arrow-up"></i>
+                    12% vs Last Month
+                </div>
+            </div>
+
+            <div class="card my-card">
+                <div class="card-header">
+                    <h3 class="card-title">My Card</h3>
+                    <button class="card-menu" style="color: white"><i class="fa fa-ellipsis-h"></i></button>
+                </div>
+                <div style="font-size: 0.75rem; opacity: 0.8; margin-bottom: 1rem;">Linked to your primary wallet</div>
+
+                <div class="card-chip"></div>
+                <div class="card-number">1234 5678 9012 3456</div>
+                <div class="card-holder">Vang</div>
+
+                <div class="card-logo">
+                    <div class="card-logo-circle logo-red"></div>
+                    <div class="card-logo-circle logo-orange"></div>
+                </div>
+
+                <div class="spending-section">
+                    <div style="margin-bottom: 0.5rem; font-size: 0.875rem; opacity: 0.9;">Spending Limit</div>
+                    <div class="spending-limit">$200</div>
+                    <div class="spending-used">Used from $100</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Overview</h3>
+                    <div style="display: flex; gap: 1rem">
+                        <div class="dropdown">Yearly <i class="fa fa-chevron-down"></i></div>
+                        <button class="filter-btn">
+                            <i class="fa fa-filter"></i>
+                            Filter
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <div class="chart-bar" style="height: 120px;"></div>
+                    <div class="chart-bar" style="height: 80px;"></div>
+                    <div class="chart-bar  active" style="height: 200px;">
+                        <div
+                            style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: white; padding: 0.25rm 0.5rem; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); font-size: 0.75rem;">
+                            <div style="font-weight: 600;">November 2026</div>
+                            <div style="color: #10b981;">Income: $879</div>
+                            <div style="color: #ea580c;">Expenses: $779</div>
+                        </div>
+                        <div class="chart-bar-income" style="height: 120px;"></div>
+                        <div class="chart-bar-expense" style="height: 80px;"></div>
+                    </div>
+
+                    <div class="chart-bar" style="height: 150px;"></div>
+                    <div class="chart-bar" style="height: 90px;"></div>
+                    <div class="chart-bar" style="height: 110px;"></div>
+                    <div class="chart-bar" style="height: 130px;"></div>
+                    <div class="chart-bar" style="height: 100px;"></div>
+                    <div class="chart-bar" style="height: 80px;"></div>
+                    <div class="chart-bar" style="height: 140px;"></div>
+                    <div class="chart-bar" style="height: 95px;"></div>
+                    <div class="chart-bar" style="height: 140px;"></div>
+
+                </div>
+
+                <div class="chart-labels">
+
+                    <span>Jan</span>
+                    <span>Feb</span>
+                    <span>Mar</span>
+                    <span>Apr</span>
+                    <span>May</span>
+                    <span>Jun</span>
+                    <span>Jul</span>
+                    <span>Aug</span>
+                    <span>Sep</span>
+                    <span>Oct</span>
+                    <span>Nov</span>
+                    <span>Dec</span>
+
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">All Expenses</h3>
+                    <button class="card-menu"><i class="fa fa-ellipsis-h"></i></button>
+                </div>
+
+                <div style="font-size: 0.75rem; color: #6b7280; margin-bottom: 1rem;">Spending breakdown by category
+                </div>
+
+                <div class="expenses-breakdown">
+                    <div class="total-expenses">Total Expenses: 
+                        <span id="totalexpensesUpdate" data-value="0">$0</span>
+                    </div>
+
+                    <div class="period-tabs">
+                        <span class="period-tabs">Daily</span>
+                        <span class="period-tabs">Weekly</span>
+                        <span class="period-tabs active">Monthly</span>
+                    </div>
+
+                    <div class="period-amounts">
+                        <span>Daily</span>
+                        <span>Weekly</span>
+                        <span>Monthly</span>
+                    </div>
+
+                    <div class="period-values">
+                        <span>$1,000</span>
+                        <span>$2,000</span>
+                        <span>$4,000</span>
+                    </div>
+
+                    <div class="color-bar"></div>
+
+                    <div class="expense-categories">
+                        <ul class="expense-categories">
+
+                            <li class="expense-category">
+                                <div class="category-info">
+                                    <div class="category-dot dot-food"></div>
+                                    <span>Food</span>
+                                </div>
+                                <span id="foodUpdate" data-value="0">$0</span>
+                            </li>
+
+                            <li class="expense-category">
+                                <div class="category-info">
+                                    <div class="category-dot dot-entertainment"></div>
+                                    <span>Entertainments</span>
+                                </div>
+                                <span id="entertainmentUpdate" data-value="0">$0</span>
+                            </li>
+
+                            <li class="expense-category">
+                                <div class="category-info">
+                                    <div class="category-dot dot-shopping"></div>
+                                    <span>Shopping</span>
+                                </div>
+                                <span id="shoppingUpdate" data-value="0">$0</span>
+                            </li>
+
+                            <li class="expense-category">
+                                <div class="category-info">
+                                    <div class="category-dot dot-transport"></div>
+                                    <span>Transport</span>
+                                </div>
+                                <span id="transportUpdate" data-value="0">$0</span>
+                            </li>
+
+                            <li class="expense-category">
+                                <div class="category-info">
+                                    <div class="category-dot dot-investment"></div>
+                                    <span>Investment</span>
+                                </div>
+                                <span id="investmentUpdate" data-value="0">$0</span>
+                            </li>
+
+                            <li class="expense-category">
+                                <div class="category-info">
+                                    <div class="category-dot dot-utilities"></div>
+                                    <span>Utilities</span>
+                                </div>
+                                <span id="utilitiesUpdate" data-value="0">$0</span>
+                            </li>
+
+                            <li class="expense-category">
+                                <div class="category-info">
+                                    <div class="category-dot dot-other"></div>
+                                    <span>Other</span>
+                                </div>
+                                <span id="otherUpdate" data-value="0">$0</span>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card transactions-section">
+            <div class="card-header">
+                <h3 class="card-title">Recent Transactions</h3>
+                <div class="filters">
+                    <button class="filter-btn">
+                        <i class="fa fa-sort"></i>
+                        Sort
+                    </button>
+                    <button class="filter-btn">
+                        <i class="fa fa-filter"></i>
+                        Filter
+                    </button>
+                </div>
+            </div>
+
+            <table class="transactions-table">
+                <thead>
+                    <tr>
+                        <th>Date <i class="fa fa-sort"></i></th>
+                        <th>Category <i class="fa fa-sort"></i></th>
+                        <th>Amount <i class="fa fa-sort"></i></th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>January 14, 2026</td>
+                        <td>Subscription</td>
+                        <td>$440.00</td>
+                        <td><span class="status-success">Success</span></td>
+                        <td><button class="action-btn"><i class="fa fa-ellipsis-h"></i></button></td>
+                    </tr>
+
+                    <tr>
+                        <td>January 10, 2026</td>
+                        <td>Subscription</td>
+                        <td>$440.00</td>
+                        <td><span class="status-success">Success</span></td>
+                        <td><button class="action-btn"><i class="fa fa-ellipsis-h"></i></button></td>
+                    </tr>
+
+                    <tr>
+                        <td>January 8, 2026</td>
+                        <td>Subscription</td>
+                        <td>$440.00</td>
+                        <td><span class="status-success">Success</span></td>
+                        <td><button class="action-btn"><i class="fa fa-ellipsis-h"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <!-- Income and Expense button -->
+    <div class="add-buttons">
+        <button class="fab fab-income" onclick="openIncomeModel()" title="Add Income">
+            <i class="fa fa-plus"></i>
+        </button>
+
+        <button class="fab fab-expense" onclick="openExpenseModel()" title="Add Expense">
+            <i class="fa fa-minus"></i>
+        </button>
+
+        <button class="fab fab-expense" onclick="openInitialModel()" title="Add Initial">
+            <i class="fa fa-first-order"></i>
+        </button>
+    
+    </div>
+
+    <div id="initialModel" class="model">
+        <div class="model-content">
+            <div class="model-header">
+                <h3 class="model-title">Add Initial Values</h3>
+                <button class="close-btn" onclick="closeModel('initialModel')">&times</button>
+            </div>
+
+            <div class="model-body">
+                <form id="initialForm" autocomplete="off">
+                    <div class="form-group">
+                        <label class="form=label">Amount</label>
+                        <input type="number" class="form-input" id="initialAmount" placeholder="Enter Initial Amount" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form=label">Date</label>
+                        <input type="date" class="form-input" id="initialDate" placeholder="Enter Date" required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="model-footer">
+                <button class="btn btn-secondary" onclick="closeModel('initialModel')">Cancel</button>
+                <button class="btn btn-primary" onclick="addInitial()">Add Initial Amount</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Income Model -->
+    <div id="incomeModel" class="model">
+        <div class="model-content">
+            <div class="model-header">
+                <h3 class="model-title">Add Income</h3>
+                <button class="close-btn" onclick="closeModel('incomeModel')">&times</button>
+            </div>
+
+            <div class="model-body">
+                <form id="incomeForm" autocomplete="off">
+                    <div class="form-group">
+                        <label class="form=label">Amount</label>
+                        <input type="number" class="form-input" id="incomeAmount" placeholder="Enter Amount" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form=label">Category</label>
+                        <select class="form-select" id="incomeCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="salary">Salary</option>
+                            <option value="freelance">Freelance</option>
+                            <option value="business">Businesss</option>
+                            <option value="investment">Investment</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form=label">Description</label>
+                        <input type="text" class="form-input" id="incomeDescription" placeholder="Enter Description" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form=label">Date</label>
+                        <input type="date" class="form-input" id="incomeDate" placeholder="Enter Date" required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="model-footer">
+                <button class="btn btn-secondary" onclick="closeModel('incomeModel')">Cancel</button>
+                <button class="btn btn-primary" onclick="addIncome()">Add Income</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Expense Model-->
+     <div id="expenseModel" class="model">
+        <div class="model-content">
+            <div class="model-header">
+                <h3 class="model-title">Add Expense</h3>
+                <button class="close-btn" onclick="closeModel('expenseModel')">&times</button>
+            </div>
+
+            <div class="model-body">
+                <form id="expenseForm" autocomplete="off">
+                    <div class="form-group">
+                        <label class="form=label">Amount</label>
+                        <input type="number" class="form-input" id="expenseAmount" placeholder="Enter Amount" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form=label">Category</label>
+                        <select class="form-select" id="expenseCategory" required>
+                            <option value="">Select Category</option>
+                            <option value="food">Food</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="shopping">Shopping</option>
+                            <option value="transport">Transport</option>
+                            <option value="investment">Investment</option>
+                            <option value="utilities">Utilities</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form=label">Description</label>
+                        <input type="text" class="form-input" id="expenseDescription" placeholder="Enter Description" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form=label">Date</label>
+                        <input type="date" class="form-input" id="expenseDate" placeholder="Enter Date" required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="model-footer">
+                <button class="btn btn-secondary" onclick="closeModel('expenseModel')">Cancel</button>
+                <button class="btn btn-primary" onclick="addExpense()">Add Expense</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
