@@ -20,7 +20,7 @@
             </div>
             <div class="date-picker">
                 <i class="fa fa-calendar"></i>
-                November 11, 2026
+                <span id="todaydate"></span>
             </div>
 
             <div class="export-btn">
@@ -151,7 +151,7 @@
 
                 <div class="expenses-breakdown">
                     <div class="total-expenses">Total Expenses: 
-                        <span id="totalexpensesUpdate" data-value="0">$0</span>
+                        <span id="totalexpensesUpdate" data-value="0">$0.00</span>
                     </div>
 
                     <div class="period-tabs">
@@ -167,9 +167,9 @@
                     </div>
 
                     <div class="period-values">
-                        <span>$1,000</span>
-                        <span>$2,000</span>
-                        <span>$4,000</span>
+                        <span id="dailyAmount" data-value="0">$0.00</span>
+                        <span id="weeklyAmount" data-value="0">$0.00</span>
+                        <span id="monthlyAmount" data-value="0">$0.00</span>
                     </div>
 
                     <div class="color-bar"></div>
@@ -182,7 +182,7 @@
                                     <div class="category-dot dot-food"></div>
                                     <span>Food</span>
                                 </div>
-                                <span id="foodUpdate" data-value="0">$0</span>
+                                <span id="foodUpdate" data-value="0">$0.00</span>
                             </li>
 
                             <li class="expense-category">
@@ -190,7 +190,7 @@
                                     <div class="category-dot dot-entertainment"></div>
                                     <span>Entertainments</span>
                                 </div>
-                                <span id="entertainmentUpdate" data-value="0">$0</span>
+                                <span id="entertainmentUpdate" data-value="0">$0.00</span>
                             </li>
 
                             <li class="expense-category">
@@ -198,7 +198,7 @@
                                     <div class="category-dot dot-shopping"></div>
                                     <span>Shopping</span>
                                 </div>
-                                <span id="shoppingUpdate" data-value="0">$0</span>
+                                <span id="shoppingUpdate" data-value="0">$0.00</span>
                             </li>
 
                             <li class="expense-category">
@@ -206,7 +206,7 @@
                                     <div class="category-dot dot-transport"></div>
                                     <span>Transport</span>
                                 </div>
-                                <span id="transportUpdate" data-value="0">$0</span>
+                                <span id="transportUpdate" data-value="0">$0.00</span>
                             </li>
 
                             <li class="expense-category">
@@ -214,7 +214,7 @@
                                     <div class="category-dot dot-investment"></div>
                                     <span>Investment</span>
                                 </div>
-                                <span id="investmentUpdate" data-value="0">$0</span>
+                                <span id="investmentUpdate" data-value="0">$0.00</span>
                             </li>
 
                             <li class="expense-category">
@@ -222,7 +222,7 @@
                                     <div class="category-dot dot-utilities"></div>
                                     <span>Utilities</span>
                                 </div>
-                                <span id="utilitiesUpdate" data-value="0">$0</span>
+                                <span id="utilitiesUpdate" data-value="0">$0.00</span>
                             </li>
 
                             <li class="expense-category">
@@ -230,7 +230,7 @@
                                     <div class="category-dot dot-other"></div>
                                     <span>Other</span>
                                 </div>
-                                <span id="otherUpdate" data-value="0">$0</span>
+                                <span id="otherUpdate" data-value="0">$0.00</span>
                             </li>
                         </ul>
 
@@ -266,29 +266,7 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>January 14, 2026</td>
-                        <td>Subscription</td>
-                        <td>$440.00</td>
-                        <td><span class="status-success">Success</span></td>
-                        <td><button class="action-btn"><i class="fa fa-ellipsis-h"></i></button></td>
-                    </tr>
-
-                    <tr>
-                        <td>January 10, 2026</td>
-                        <td>Subscription</td>
-                        <td>$440.00</td>
-                        <td><span class="status-success">Success</span></td>
-                        <td><button class="action-btn"><i class="fa fa-ellipsis-h"></i></button></td>
-                    </tr>
-
-                    <tr>
-                        <td>January 8, 2026</td>
-                        <td>Subscription</td>
-                        <td>$440.00</td>
-                        <td><span class="status-success">Success</span></td>
-                        <td><button class="action-btn"><i class="fa fa-ellipsis-h"></i></button></td>
-                    </tr>
+                   
                 </tbody>
             </table>
         </div>
@@ -305,38 +283,10 @@
             <i class="fa fa-minus"></i>
         </button>
 
-        <button class="fab fab-expense" onclick="openInitialModel()" title="Add Initial">
+        <button class="fab fab-expense" onclick="addInitial()" title="Add Initial">
             <i class="fa fa-first-order"></i>
         </button>
     
-    </div>
-
-    <div id="initialModel" class="model">
-        <div class="model-content">
-            <div class="model-header">
-                <h3 class="model-title">Add Initial Values</h3>
-                <button class="close-btn" onclick="closeModel('initialModel')">&times</button>
-            </div>
-
-            <div class="model-body">
-                <form id="initialForm" autocomplete="off">
-                    <div class="form-group">
-                        <label class="form=label">Amount</label>
-                        <input type="number" class="form-input" id="initialAmount" placeholder="Enter Initial Amount" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form=label">Date</label>
-                        <input type="date" class="form-input" id="initialDate" placeholder="Enter Date" required>
-                    </div>
-                </form>
-            </div>
-
-            <div class="model-footer">
-                <button class="btn btn-secondary" onclick="closeModel('initialModel')">Cancel</button>
-                <button class="btn btn-primary" onclick="addInitial()">Add Initial Amount</button>
-            </div>
-        </div>
     </div>
 
     <!-- Income Model -->

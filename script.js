@@ -1,28 +1,4 @@
-let transactions = [
-    {
-        id: 1,
-        date: "2025-01-14",
-        amount: -300,
-        status: "Success",
-        type: "expense",
-    },
-
-    {
-        id: 1,
-        date: "2025-01-10",
-        amount: -400,
-        status: "Success",
-        type: "expense",
-    },
-
-    {
-        id: 1,
-        date: "2025-01-8",
-        amount: -500,
-        status: "Success",
-        type: "expense",
-    },
-];
+let transactions = [];
 
 let monthlyIncome = 0;
 let monthlyExpenses = 0;
@@ -34,9 +10,13 @@ const currencyFormatter = new Intl.NumberFormat('en-US', {
     currency: 'USD'
 });
 
-const today = new Date().toISOString().split('T')[0];
+let atoday = new Date();
+let todayDateS = `${atoday.getFullYear()}-${String(atoday.getMonth() + 1).padStart(2, "0")}-${String(atoday.getDate()).padStart(2, "0")}`;
+
+const today = todayDateS;
 document.getElementById('incomeDate').value = today;
 document.getElementById('expenseDate').value = today;
+document.getElementById("todaydate").textContent = todayDateS;
 
 function openIncomeModel() {
     document.getElementById('incomeModel').style.display = 'block';
@@ -48,10 +28,10 @@ function openExpenseModel() {
     document.body.style.overflow = 'hidden';
 }
 
-function openInitialModel() {
+/*function openInitialModel() {
     document.getElementById('initialModel').style.display = 'block';
     document.body.style.overflow = 'hidden';
-}
+}*/
 
 function closeModel(modelId) {
     document.getElementById(modelId).style.display = 'none';
@@ -90,75 +70,37 @@ window.onclick = function (event) {
 //updates the individual amounts for each category
 function updateAllExpenses(category, amount) {
 
-    if (category === "food"){
+    function updateCalculator(inputCategory){
         //updates food and health expense
-        const counterSpan = document.getElementById('foodUpdate');
+        const counterSpan = document.getElementById(inputCategory);
         let currentValue = parseInt(counterSpan.dataset.value);
         currentValue += amount;
         counterSpan.dataset.value = currentValue;
         counterSpan.innerText = currentValue;
         //makes it so it shows up as USD instead of just numbers
         counterSpan.innerText = currencyFormatter.format(currentValue);
+    }
+
+    if (category === "food"){
+        updateCalculator("foodUpdate");
 
     } else if (category === "entertainment"){
-        //updates entertainment expense
-        const counterSpan = document.getElementById('entertainmentUpdate');
-        let currentValue = parseInt(counterSpan.dataset.value);
-        currentValue += amount;
-        counterSpan.dataset.value = currentValue;
-        counterSpan.innerText = currentValue;
-        //makes it so it shows up as USD instead of just numbers
-        counterSpan.innerText = currencyFormatter.format(currentValue);
+        updateCalculator("entertainmentUpdate");
 
     } else if (category === "shopping"){
-        //updates shopping expense
-        const counterSpan = document.getElementById('shoppingUpdate');
-        let currentValue = parseInt(counterSpan.dataset.value);
-        currentValue += amount;
-        counterSpan.dataset.value = currentValue;
-        counterSpan.innerText = currentValue;
-        //makes it so it shows up as USD instead of just numbers
-        counterSpan.innerText = currencyFormatter.format(currentValue);
+        updateCalculator("shoppingUpdate")
 
     } else if (category === "investment"){
-        //updates investment expense
-        const counterSpan = document.getElementById('investmentUpdate');
-        let currentValue = parseInt(counterSpan.dataset.value);
-        currentValue += amount;
-        counterSpan.dataset.value = currentValue;
-        counterSpan.innerText = currentValue;
-        //makes it so it shows up as USD instead of just numbers
-        counterSpan.innerText = currencyFormatter.format(currentValue);
+        updateCalculator("investmentUpdate");
 
     } else if (category === "transport"){
-        //updates investment expense
-        const counterSpan = document.getElementById('transportUpdate');
-        let currentValue = parseInt(counterSpan.dataset.value);
-        currentValue += amount;
-        counterSpan.dataset.value = currentValue;
-        counterSpan.innerText = currentValue;
-        //makes it so it shows up as USD instead of just numbers
-        counterSpan.innerText = currencyFormatter.format(currentValue);
+        updateCalculator("transportUpdate");
 
     } else if (category === "utilities"){
-        //updates investment expense
-        const counterSpan = document.getElementById('utilitiesUpdate');
-        let currentValue = parseInt(counterSpan.dataset.value);
-        currentValue += amount;
-        counterSpan.dataset.value = currentValue;
-        counterSpan.innerText = currentValue;
-        //makes it so it shows up as USD instead of just numbers
-        counterSpan.innerText = currencyFormatter.format(currentValue);
+        updateCalculator("utilitiesUpdate");
 
     } else {
-        //updates investment expense
-        const counterSpan = document.getElementById('otherUpdate');
-        let currentValue = parseInt(counterSpan.dataset.value);
-        currentValue += amount;
-        counterSpan.dataset.value = currentValue;
-        counterSpan.innerText = currentValue;
-        //makes it so it shows up as USD instead of just numbers
-        counterSpan.innerText = currencyFormatter.format(currentValue);
+        updateCalculator("otherUpdate");
 
     }
 
@@ -232,6 +174,47 @@ function addExpense() {
 
     updateAllExpenses(category, amount);
 
+    function updateDWMvalues(){
+
+        //resets amounts so that previous amount isn't added onto the new total
+        document.getElementById("dailyAmount").dataset.value = 0;
+        document.getElementById("weeklyAmount").dataset.value = 0;
+        document.getElementById("monthlyAmount").dataset.value = 0;
+
+        function changeDWMvalues(dwmValue, amount){
+                const counterSpan = document.getElementById(dwmValue);
+                let currentValue = parseInt(counterSpan.dataset.value);
+                currentValue += parseInt(amount);
+                counterSpan.dataset.value = currentValue;
+                counterSpan.innerText = currentValue;
+                //makes it so it shows up as USD instead of just numbers
+                counterSpan.innerText = currencyFormatter.format(currentValue);
+            }
+
+        for(let transaction of transactions){
+
+            if (transaction.status !== "Success" || transaction.type !== "expense"){
+                continue;
+            }
+
+            //add to total monthly expenses
+            if (parseInt(transaction.date.split("-")[1]) === parseInt(atoday.getMonth() + 1)){
+                changeDWMvalues("monthlyAmount", transaction.amount);
+            }
+
+            //add to total daily expenses
+            if (parseInt(transaction.date.split("-")[2]) === parseInt(atoday.getDate())){
+                changeDWMvalues("dailyAmount", transaction.amount);
+            }
+
+            //add to total monthly expenses//needs works
+            if (parseInt(transaction.date.split("-")[2]) === parseInt(atoday.getDay())){
+                changeDWMvalues("weeklyAmount", transaction.amount);
+            }
+        }
+    }
+
+    updateDWMvalues();
     updateDashboard();
     updateTransactionTable();
 
@@ -239,40 +222,48 @@ function addExpense() {
     showNotification('Expense added successfully', 'success');
 }
 
+//reset all the values
 function addInitial() {
-    const amount = parseFloat(document.getElementById('initialAmount').value);
+  //  const amount = parseFloat(document.getElementById('initialAmount').value);
  //   const category = document.getElementById('initialCategory').value;
  //   const description = document.getElementById('initialDescription').value;
-    const date = document.getElementById('initialDate').value;
+ //   const date = document.getElementById('initialDate').value;
 
-    if (!amount ||/* !category ||*/ !date) {
-        alert('Please fill in all fields');
-        return;
-    }
-
-
-    const newTransaction = {
-        id: transactions.length + 1,
-        date: date,
-        category: "Initial Amount",
-        amount: amount,
-        status: 'Success',
-        type: 'initial',
-     //   description: description,
-    }
 
     //resets transactions table to nothing
     transactions = [];
 
-    transactions.unshift(newTransaction)
+    monthlyIncome = 0;
 
-    monthlyIncome = amount;
+    //resetting all the values
+    function updateCalculator(inputCategory){
+        //updates food and health expense
+        const counterSpan = document.getElementById(inputCategory);
+        let currentValue = parseInt(counterSpan.dataset.value);
+        currentValue = 0;
+        counterSpan.dataset.value = currentValue;
+        counterSpan.innerText = currentValue;
+        //makes it so it shows up as USD instead of just numbers
+        counterSpan.innerText = currencyFormatter.format(currentValue);
+    }
+
+    updateCalculator("totalexpensesUpdate");
+    updateCalculator("foodUpdate");
+    updateCalculator("entertainmentUpdate");
+    updateCalculator("shoppingUpdate")
+    updateCalculator("investmentUpdate");
+    updateCalculator("transportUpdate");
+    updateCalculator("utilitiesUpdate");
+    updateCalculator("otherUpdate");
+    updateCalculator("dailyAmount");
+    updateCalculator("weeklyAmount");
+    updateCalculator("monthlyAmount");
 
     updateDashboard();
     updateTransactionTable();
 
     closeModel('initialModel');
-    showNotification('Successfully made Initial Amount', 'success');
+    showNotification('Successfully Resetted the Values', 'success');
 }
 
 function updateDashboard(spendingLimit = 500) {
